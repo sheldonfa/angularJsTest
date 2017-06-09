@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" ng-app="Todos">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/index.css">
+		<!-- CSS overrides - remove if you don't need it -->
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body ng-controller="TodosController">
+		<section class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<form ng-submit="add(text)">
+					<input class="new-todo" placeholder="What needs to be done?" autofocus ng-model="text">
+				</form>
+			</header>
+			<section class="main">
+				<input class="toggle-all" type="checkbox">
+				<h2>未完成</h2>
+				<ul class="todo-list">
+					<li ng-repeat="(index,todo) in todos">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-checked="todo.mark" ng-click="isDone(index)">
+							<label>{{todo.title}}</label>
+							<button class="destroy" ng-click="del(todos,index)"></button>
+						</div>
+					</li>
+				</ul>
+				<h2>已完成</h2>
+				<ul class="todo-list">
+					<li class="completed" ng-repeat="(index,done) in dones">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-checked="done.mark" ng-click="recover(index)">
+							<label>{{done.title}}</label>
+							<button class="destroy" ng-click="del(dones,index)"></button>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<footer class="footer">
+				<span class="todo-count"><strong>{{todos.length}}</strong> item left</span>
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<p>Created by <a href="http://todomvc.com">you</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script src="libs/angular.min.js"></script>
+		<script>
+			// module
+			var Todos = angular.module('Todos',[]);
+			Todos.controller('TodosController',['$scope',function($scope){
+                /**
+				 * model
+                 */
+                // 任务清单
+				$scope.todos = [];
+				// 完成清单
+				$scope.dones = [];
+
+                /**
+				 * 事件
+                 */
+                // 添加任务
+				$scope.add = function(text){
+				    $scope.todos.push({title:text,mark:false});
+					$scope.text = '';
+				};
+                // 完成任务
+                $scope.isDone = function(index){
+                    // 截取数组元素
+                    var el = $scope.todos.splice(index,1)[0];
+                    // 添加到完成清单
+					el.mark = true;
+					$scope.dones.push(el);
+				};
+				// 删除任务
+				$scope.del = function(tasks,index){
+                    tasks.splice(index,1);
+				};
+				// 恢复任务
+				$scope.recover = function(index){
+                    // 截取数组元素
+                    var el = $scope.dones.splice(index,1)[0];
+                    // 添加到完成清单
+                    el.mark = false;
+                    $scope.todos.push(el);
+				}
+			}])
+		</script>
+	</body>
+</html>

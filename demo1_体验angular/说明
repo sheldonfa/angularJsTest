@@ -1,0 +1,5 @@
+demo1       体验angularJs
+
+技术点：
+1、引入angular.js文件
+2、使用ng-model 绑定一个text的输入框，然后用{{ }}读取输入框的内容，达到实时展示的效果

@@ -1,0 +1,6 @@
+demo2       模块化
+
+技术点：
+1、定义module、controller
+2、利用$scope关联数据，然后在页面展示
+3、遍历数组、list对象、map

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 模块化</title>
+</head>
+<body>
+	<!-- 指定模块 -->
+	<!-- 一个页可以有多个模块，但是不能互相嵌套 -->
+	<!-- 一般只会有一个 -->
+	<div class="box" ng-app="App">
+		<!-- 指定控制器 -->
+		<div ng-controller="DemoContoller">
+			<h1>{{name}}在{{school}}学习使用AngularJS</h1>
+			<h2>遍历数组</h2>
+			<ul>
+				<li ng-repeat="(index, value) in arr">第{{index+1}}天：{{value}}</li>
+			</ul>
+			<h2>遍历对象</h2>
+			<table>
+				<tr ng-repeat="star in stars">
+					<td>姓名：{{star.name}}</td>
+					<td>性别：{{star.sex}}</td>
+					<td>年龄：{{star.age}}</td>
+				</tr>
+			</table>
+			<h2>遍历map</h2>
+			<ul>
+				<li ng-repeat="(key, value) in province">{{key}}：{{value}}</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 引入框架 -->
+	<script src="./libs/angular.min.js"></script>
+	<script>
+		
+		// 提供一个全局对象angular，在此对象下有N多方法
+		// 其中module方法可以帮我们创建一个模块
+		var App = angular.module('App', []);
+
+		// App就是新创建的模块，这个模块又是一个对象
+		// 在此对象下又有N多方法，可以实现具体业务逻辑
+
+		// 其中controller可以创建一个控制器
+		App.controller('DemoContoller', ['$scope', function ($scope) {
+			// $scope 是一个空对象{}，此对象就是Model
+
+			$scope.name = '李振杰';
+			$scope.school = '传智播客'; 
+
+			// 数组值
+			$scope.arr = [
+				'MVC',
+				'指令',
+				'模块化'
+			];
+			// list对象
+            $scope.stars = [
+                {name: '刘德华', sex: '男', age: 62},
+                {name: '王力宏', sex: '男', age: 40},
+                {name: '周杰伦', sex: '男', age: 39},
+                {name: '小明', sex: '女', age: 12}
+            ];
+            // map
+            $scope.province = {
+                '北京':'北京',
+                '河北':'石家庄',
+                '四川':'成都'
+            };
+        }]);
+	</script>
+</body>
+</html>

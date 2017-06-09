@@ -1,0 +1,18 @@
+demo4       数据绑定
+
+技术点：
+1、双向数据绑定：既可以 模型--》视图，也可以 视图--》模型
+2、ng-bind 和 {{}} 的区别
+    {{}}更灵活，但是会闪
+3、ng-cloak 解决{{}}闪的问题。
+    注意：要想有效，需要将 angular.js的引用放到页面前面
+    原理：就是个隐藏属性，当页面加载完，在显示所有ng-cloak标签
+4、ng-bind-template，意义不大
+
+5、视图--》模型，有且仅有表单元素可以实现。需要添加ng-model指令
+
+6、ng-init初始化scope
+
+7、ng-click ng-mouseover等事件绑定
+
+8、ng-switch-when 筛选功能

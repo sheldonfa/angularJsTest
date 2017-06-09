@@ -1,0 +1,36 @@
+demo3       指令
+
+技术点：
+1、指令命名规范：一般都以"ng-"作为前缀
+2、内置指令
+    ng-app
+        指定应用根元素，至少有一个元素指定了此属性。
+    ng-controller
+        指定控制器
+    ng-show
+        控制元素是否显示，true显示、false不显示
+    ng-hide
+        控制元素是否隐藏，true隐藏、false不隐藏
+    ng-if
+        控制元素是否“存在”，true存在、false不存在。注意与ng-show的区别：一个是隐藏，一个是标签根本就不存在
+    ng-src
+        增强图片路径。防止出现图片碎片
+        解释：
+            浏览器从上向下加载时，如果你的src="{{path}}"，由于一开始不认识，可能会出现碎片文件，当加载到scrpit时才恍然大悟，这样虽然无伤大雅，但是体验略差
+            用ng-src由于一开始就不认识，所以浏览器不会加载图片，最后读到script再添加图片，所以始终没有出现图片碎片。
+    ng-href
+        增强地址。同理ng-src
+    ng-class
+        控制类名。用true和false控制是否使用某个class属性
+    ng-include
+        引入模板。必须放在服务器上使用
+
+3、自定义指令，使用 directive('tag',function(){})
+    restrict: 'EAMC'
+
+
+
+
+
+
+

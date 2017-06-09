@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>体验angularJS</title>
+</head>
+<body ng-app="App" ng-controller="DemoController">
+
+	<h2>$q.defer()</h2>
+
+	<!-- 引入angularJS框架 -->
+	<script src="./libs/angular.min.js"></script>
+	<script>
+		var App = angular.module('App',[]);
+		App.controller('DemoController',['$scope','$q',function($scope,$q){
+		    $scope.getA = function(){
+		        $scope.A().then(function(data){
+		            alert(data);
+				})
+			};
+			$scope.A = function(){
+		        var q = $q.defer();
+		        alert("aa");
+		        var data= 'bb';
+				q.resolve(data);
+				return q.promise;
+			};
+			$scope.getA();
+		}])
+	</script>
+</body>
+</html>

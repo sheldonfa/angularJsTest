@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>体验angularJS</title>
+</head>
+<body ng-app="App" ng-controller="Demo1Controller">
+
+	<h2>获取checkbox列表</h2>
+
+
+	<label ng-repeat="o in demoList">
+		<input type="checkbox" ng-model="checkList[o.id]" ng-change="printCheckList()">{{o.id}}
+	</label>
+
+	<input type="button" ng-click="selectAll(true)" value="全选">
+	<input type="button" ng-click="selectAll(false)" value="全不选">
+	<input type="button" ng-click="invertSelect()" value="反选">
+
+	<!-- 引入angularJS框架 -->
+	<script src="./libs/angular.min.js"></script>
+	<script>
+		var App = angular.module('App',[]);
+		App.controller('Demo1Controller',['$scope',function($scope){
+		    // 列表
+		    $scope.checkList = [];
+		    $scope.demoList = [];
+
+		    $scope.printCheckList = function(){
+		        angular.forEach($scope.checkList,function(value,index){
+		            console.log(index+":"+value);
+				})
+			};
+			// 3 实现全选 全不选
+			$scope.selectAll = function(flag){
+			    angular.forEach($scope.checkList,function(value,index){
+			        $scope.checkList[index] = flag;
+				});
+			};
+			// 4 反选
+			$scope.invertSelect = function(){
+			    var flag = false;
+			    angular.forEach($scope.checkList,function(value,index){
+			        if(value===false){
+			            flag = true;
+					}
+				});
+				if(flag){
+			        $scope.selectAll(true);
+				}else{
+				    $scope.selectAll(false);
+				}
+			};
+
+			$scope.init = {
+			    initCheckList:function(){
+			        // 1初始化列表
+			        $scope.demoList = [
+                        {id:3},
+                        {id:5},
+                        {id:7},
+                        {id:9}
+                    ];
+			        // 2初始化checkList
+			        angular.forEach($scope.demoList,function(obj,index){
+			            $scope.checkList[obj.id] = false;
+					});
+				},
+				init:function(){
+			        this.initCheckList()
+				}
+			};
+			$scope.init.init();
+		}])
+	</script>
+</body>
+</html>
